@@ -1,0 +1,8 @@
+Housedata <- read.table('household_power_consumption.txt', header=TRUE, sep=";", colClasses=c("character", "character", rep("numeric",7)), na="?")
+Housedata$Time <- strptime(paste(Housedata$Date, Housedata$Time), "%d/%m/%Y %H:%M:%S")
+Housedata$Date <- as.Date(Housedata$Date, "%d/%m/%Y")
+Housedataset <- as.Date(c("2007-02-01", "2007-02-02"), "%Y-%m-%d")
+Housedata <- subset(Housedata, Date %in% Housedataset)
+hist(Housedata$Global_active_power, main="Global Active Power", xlab="Global Active Power (kilowatts)", ylab="Frequency", col="Red")
+dev.copy(png, file="plot1.png", height=480, width=480)
+dev.off()
